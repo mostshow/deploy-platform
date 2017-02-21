@@ -1,7 +1,7 @@
 {
-  "name": "adeploy",
+  "name": "platform-front-end",
   "version": "1.0.0",
-  "description": "",
+  "description": "deploy-platform",
   "main": "index.js",
   "scripts": {
     "start-dev": "node server/app",
