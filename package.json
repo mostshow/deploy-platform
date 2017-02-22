@@ -12,7 +12,7 @@
   "localServer": {
     "port": 3011
   },
-  "author": "lyn",
+  "author": "lyndon",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^6.7.0",

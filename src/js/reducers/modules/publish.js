@@ -1,14 +1,19 @@
 
 
-import * as ActionTypes from '../../constants/project'
+import * as ActionTypes from '../../constants/publish'
 import {success , request ,failure , composeReducers} from '../../utils/tools'
 
 const initialState = {
-
+    // isEdit:false
 };
 
 function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    case ActionTypes.EDIT_PUBLISH_BTN:
+        return {
+            ...state,
+            ...action
+        }
     default:
       return state;
   }
@@ -16,18 +21,18 @@ function reducer(state = initialState, action = {}) {
 
 const finnalReducer = composeReducers(
   reducer,
-  request(ActionTypes.LIST_PROJECT.REQUEST),
-  failure(ActionTypes.LIST_PROJECT.FAILURE),
-  success(ActionTypes.LIST_PROJECT.SUCCESS,'listProject'),
-  request(ActionTypes.EDIT_PROJECT.REQUEST),
-  failure(ActionTypes.EDIT_PROJECT.FAILURE),
-  success(ActionTypes.EDIT_PROJECT.SUCCESS,'editProject'),
-  request(ActionTypes.DEL_PROJECT.REQUEST),
-  failure(ActionTypes.DEL_PROJECT.FAILURE),
-  success(ActionTypes.DEL_PROJECT.SUCCESS,'delProject'),
-  request(ActionTypes.CREATE_PROJECT.REQUEST),
-  failure(ActionTypes.CREATE_PROJECT.FAILURE),
-  success(ActionTypes.CREATE_PROJECT.SUCCESS,'createProject'),
+  request(ActionTypes.LIST_PUBLISH.REQUEST),
+  failure(ActionTypes.LIST_PUBLISH.FAILURE),
+  success(ActionTypes.LIST_PUBLISH.SUCCESS,'listPublish'),
+  request(ActionTypes.EDIT_PUBLISH.REQUEST),
+  failure(ActionTypes.EDIT_PUBLISH.FAILURE),
+  success(ActionTypes.EDIT_PUBLISH.SUCCESS,'editPublish'),
+  request(ActionTypes.DEL_PUBLISH.REQUEST),
+  failure(ActionTypes.DEL_PUBLISH.FAILURE),
+  success(ActionTypes.DEL_PUBLISH.SUCCESS,'delPublish'),
+  request(ActionTypes.CREATE_PUBLISH.REQUEST),
+  failure(ActionTypes.CREATE_PUBLISH.FAILURE),
+  success(ActionTypes.CREATE_PUBLISH.SUCCESS,'createPublish'),
 )
 
 export default finnalReducer

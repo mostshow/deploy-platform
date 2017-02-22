@@ -19,7 +19,7 @@ class ProjectForm extends Component {
                 name: toEditData.name,
                 gitPath: toEditData.gitPath,
                 branch: toEditData.branch,
-                // category: toEditData.type,
+                description: toEditData.description,
             });
         }
     }
@@ -59,6 +59,7 @@ class ProjectForm extends Component {
                         gitPath: '',
                         branch: '',
                         category: '',
+                        description:''
                     });
                 }
             }
@@ -138,7 +139,9 @@ class ProjectForm extends Component {
                 </FormItem>
 
                 <FormItem {...formItemLayout} hasFeedback label="项目描述">
-                    {getFieldDecorator('describe')(<Input type="textarea" />)}
+                    {getFieldDecorator('description',{
+                        rules: [{ required: true, message: '请输入项目描述!' }],
+                    })(<Input type="textarea" />)}
                 </FormItem>
                     <FormItem {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit" size="large">提交</Button>

@@ -1,11 +1,13 @@
 import {createRequestTypes} from '../../utils/tools'
 
-export const LOAD_LIST_PROJECT = 'LOAD_LIST_PROJECT'
-export const LOAD_EDIT_PROJECT = 'LOAD_EDIT_PROJECT'
-export const LOAD_DEL_PROJECT = 'LOAD_DEL_PROJECT'
-export const LOAD_CREATE_PROJECT = 'LOAD_CREATE_PROJECT'
+export const LOAD_LIST_PUBLISH = 'LOAD_LIST_PUBLISH'
+export const LOAD_EDIT_PUBLISH = 'LOAD_EDIT_PUBLISH'
+export const LOAD_DEL_PUBLISH = 'LOAD_DEL_PUBLISH'
+export const LOAD_CREATE_PUBLISH = 'LOAD_CREATE_PUBLISH'
 
-export const LIST_PROJECT = createRequestTypes('LIST_PROJECT')
-export const EDIT_PROJECT = createRequestTypes('EDIT_PROJECT')
-export const DEL_PROJECT = createRequestTypes('DEL_PROJECT')
-export const CREATE_PROJECT = createRequestTypes('CREATE_PROJECT')
+export const LIST_PUBLISH = createRequestTypes('LIST_PUBLISH')
+export const EDIT_PUBLISH = createRequestTypes('EDIT_PUBLISH')
+export const DEL_PUBLISH = createRequestTypes('DEL_PUBLISH')
+export const CREATE_PUBLISH = createRequestTypes('CREATE_PUBLISH')
+
+export const EDIT_PUBLISH_BTN = 'EDIT_PUBLISH_BTN'

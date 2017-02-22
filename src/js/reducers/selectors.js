@@ -10,6 +10,12 @@ export const getListProCategoryResult = (state) => {
     return []
 }
 
+export const getListPublishResult = (state) => {
+    if(state.publish.listPublish&&state.publish.listPublish.code==0){
+        return state.publish.listPublish.result.reData
+    }
+    return []
+}
 export const getListUserResult = (state) => {
     if(state.user.listUser&&state.user.listUser.code==0){
         return state.user.listUser.result.reData

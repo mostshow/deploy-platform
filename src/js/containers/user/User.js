@@ -49,7 +49,7 @@ const getData= (state) => {
             temp.username = item.username;
             temp.email = item.email||'/';
             temp.rolename = item.roleId.rolename;
-            temp.createAt =moment(item.createAt).format("YYYY-MM-DD HH:SS");
+            temp.createAt =moment(item.createAt).format("YYYY-MM-DD HH:ss");
             dataSource.push(temp)
         })
     return {dataSource:dataSource}

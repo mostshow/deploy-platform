@@ -5,7 +5,6 @@ import * as ActionTypes from '../constants/ActionTypes'
 import {action} from '../utils/tools'
 
 export * as project from './project'
-export * as prostatus from './prostatus'
 export * as proCategory from './proCategory'
 export * as publish from './publish'
 export * as user from './user'

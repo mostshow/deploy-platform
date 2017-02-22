@@ -10,6 +10,7 @@ const initialState = {
 function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case ActionTypes.EDIT_PROJECT_BTN:
+    case ActionTypes.OPERATE_PROJECT_BTN:
         return {
             ...state,
             ...action

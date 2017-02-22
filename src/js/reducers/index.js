@@ -4,11 +4,9 @@ import merge from 'lodash/merge'
 // import { routerReducer as routing } from 'react-router-redux'
 import user from './modules/user'
 import project from './modules/project'
-import prostatus from './modules/prostatus'
 import proCategory from './modules/proCategory'
 import publish from './modules/publish'
 import roles from './modules/roles'
-
 
 function entities(state = {}, action) {
     if (action.response && action.response.entities) {
@@ -54,12 +52,11 @@ function router(state = { pathname: '/' }, action) {
 
 const rootReducer = combineReducers({
     entities,
+    publish,
     user,
     project,
-    prostatus,
     proCategory,
     roles,
-    publish,
     messageTip,
     router
 })

@@ -53,8 +53,8 @@ const getData= (state) => {
             temp.key = item._id;
             temp.rolename = item.rolename;
             temp.roleId = item.roleId;
-            temp.updateAt = moment(item.updateAt).format("YYYY-MM-DD HH:SS");
-            temp.createAt = moment(item.createAt).format("YYYY-MM-DD HH:SS");
+            temp.updateAt = moment(item.updateAt).format("YYYY-MM-DD HH:ss");
+            temp.createAt = moment(item.createAt).format("YYYY-MM-DD HH:ss");
             dataSource.push(temp)
         })
     return {dataSource:dataSource}

@@ -42,17 +42,12 @@ const mapDispatchToProps = (dispatch) => {
 }
 const getData= (state) => {
     let data =  getListProjectResult(state);
-    let dataSource = [];
-        data.forEach(function(item){
-            let temp ={}
-            temp.key = item._id;
-            temp.name = item.name;
-            temp.branch = item.branch;
-            temp.createAt =moment(item.createAt).format("YYYY-MM-DD HH:SS");
-            temp.gitPath = item.gitPath;
-            temp.type = item.category.name;
-            temp.createBy = item.createBy.username;
-            dataSource.push(temp)
+    let dataSource =data.map(function(item){
+            item.createAt =moment(item.createAt).format("YYYY-MM-DD HH:ss");
+            item.type = item.category.name;
+            item.createBy = item.createBy&&item.createBy.username;
+            item.key = item._id;
+            return item;
         })
     return {dataSource:dataSource}
 }

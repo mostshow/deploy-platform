@@ -14,6 +14,12 @@ export default class ProjectList extends Component {
         this.props.actions.loadDelProject({id});
     }
 
+    handleOperate (operateData){
+        let {actions, navigate, dispatch} = this.props
+        actions.operateProjectBtn({operateData})
+        dispatch(navigate(`/project/operate`))
+
+    }
     handleEdit (toEditData){
         let {actions, navigate, dispatch} = this.props
         actions.editProjectBtn({toEditData})
@@ -53,9 +59,10 @@ export default class ProjectList extends Component {
             title: '管理',
             dataIndex: '',
             key: 'x',
-            width:120,
+            width:160,
             render: (text, record) => (
             <Button.Group type="ghost">
+                <Button className='mgr5' size="small" onClick={() => this.handleOperate(record)}>管理</Button>
                 <Button className='mgr5' size="small" onClick={() => this.handleEdit(record)}>编辑</Button>
                 <Popconfirm title="确定要删除吗？" onConfirm={() => this.handleDel(record)}>
                     <Button size="small">删除</Button>
@@ -66,7 +73,7 @@ export default class ProjectList extends Component {
 
         let container = (
             <div className="container">
-                <Table dataSource={data.dataSource} columns={columns} bordered />
+                <Table dataSource={data.dataSource} expandedRowRender={record => <p>{record.description}</p>} columns={columns} bordered />
             </div>
         )
 
