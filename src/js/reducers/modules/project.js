@@ -15,6 +15,23 @@ function reducer(state = initialState, action = {}) {
             ...state,
             ...action
         }
+        break;
+    case ActionTypes.UPDATE_OPERATE_PROJECT:
+        let operateData = state.operateData;
+        let publish_id = action.publish_id;
+        let online = action.online;
+        let publish = operateData.publish.filter(function(item){
+            return item != publish_id
+        })
+        if(online){
+            publish.push(publish_id)
+        }
+        operateData.publish = publish;
+        return {
+            ...state,
+            operateData
+        }
+        break;
     default:
       return state;
   }
@@ -22,6 +39,12 @@ function reducer(state = initialState, action = {}) {
 
 const finnalReducer = composeReducers(
   reducer,
+  request(ActionTypes.OFFLINE_PROJECT.REQUEST),
+  failure(ActionTypes.OFFLINE_PROJECT.FAILURE),
+  success(ActionTypes.OFFLINE_PROJECT.SUCCESS,'offlineProject'),
+  request(ActionTypes.ONLINE_PROJECT.REQUEST),
+  failure(ActionTypes.ONLINE_PROJECT.FAILURE),
+  success(ActionTypes.ONLINE_PROJECT.SUCCESS,'onlineProject'),
   request(ActionTypes.LIST_PROJECT.REQUEST),
   failure(ActionTypes.LIST_PROJECT.FAILURE),
   success(ActionTypes.LIST_PROJECT.SUCCESS,'listProject'),

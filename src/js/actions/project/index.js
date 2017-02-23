@@ -27,7 +27,7 @@ export const editProject = {
 export const onlineProject = {
     request: (apiurl) => action(ActionTypes.ONLINE_PROJECT.REQUEST, {apiurl}),
     success: (apiurl, response) => action(ActionTypes.ONLINE_PROJECT.SUCCESS, {apiurl, response}),
-    failure: (apiurl, error) => action(ActionTypes.OOONLINEEE_PROJECT.FAILURE, {apiurl, error}),
+    failure: (apiurl, error) => action(ActionTypes.ONLINE_PROJECT.FAILURE, {apiurl, error}),
 }
 
 export const offlineProject = {
@@ -38,6 +38,7 @@ export const offlineProject = {
 
 export const editProjectBtn = (toEditData={}) => action(ActionTypes.EDIT_PROJECT_BTN,toEditData)
 export const operateProjectBtn = (operateData={}) => action(ActionTypes.OPERATE_PROJECT_BTN,operateData)
+export const updateOperateData = (operateData={}) => action(ActionTypes.UPDATE_OPERATE_PROJECT,operateData)
 
 export const loadListProject = ( requiredFields = []) => action(ActionTypes.LOAD_LIST_PROJECT, {apiname:'/project/list', requiredFields})
 export const loadCreateProject = ( requiredFields = []) => action(ActionTypes.LOAD_CREATE_PROJECT, {apiname:'/project/create', requiredFields})

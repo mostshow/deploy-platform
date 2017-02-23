@@ -5,6 +5,35 @@ import { take, fork} from 'redux-saga/effects'
 import * as actions from '../../actions'
 import { message} from 'antd'
 
+
+function* watchOffline() {
+    while(true) {
+        const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_OFFLINE_PROJECT)
+        yield fork(createFetch(actions.project.offlineProject), apiname, requiredFields,{
+            succAct:actions.project.updateOperateData({...requiredFields,online:false}),
+            succFn:function(){
+                message.success('下线成功！')
+            },
+            failFn:function(err){
+                message.error(err||'上线失败！')
+            }
+        })
+    }
+}
+function* watchOnline() {
+    while(true) {
+        const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_ONLINE_PROJECT)
+        yield fork(createFetch(actions.project.onlineProject), apiname, requiredFields,{
+            succAct:actions.project.updateOperateData({...requiredFields,online:true}),
+            succFn:function(){
+                message.success('上线成功！')
+            },
+            failFn:function(err){
+                message.error(err||'上线失败！')
+            }
+        })
+    }
+}
 function* watchList() {
     while(true) {
         const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_LIST_PROJECT)
@@ -61,5 +90,5 @@ function* watchEdit() {
         })
     }
 }
-export default [fork(watchList),fork(watchCreate),fork(watchDel),fork(watchEdit)]
+export default [fork(watchList),fork(watchCreate),fork(watchDel),fork(watchEdit), fork(watchOnline), fork(watchOffline)]
 

@@ -16,10 +16,10 @@ class EditProProject extends Component {
         this.props.loadListPublish()
     }
     render() {
-        let {loadOnlineProject, loadOfflineProject,  operateData, publish ,navigate, dispatch, loading} = this.props
+        let {loadOnlineProject, loadOfflineProject, onlinePublish,  operateData, publish ,navigate, dispatch, loading} = this.props
         return(
             <div className="create-form">
-                <ProjectOperate operateData={operateData}  navigate={navigate} dispatch={dispatch}  publish={publish} loading={loading} loadOnlineProject={loadOnlineProject}  loadOfflineProject={loadOfflineProject}/>
+                <ProjectOperate operateData={operateData} onlinePublish={onlinePublish}  navigate={navigate} dispatch={dispatch}  publish={publish} loading={loading} loadOnlineProject={loadOnlineProject}  loadOfflineProject={loadOfflineProject}/>
             </div>
         )
     }
@@ -30,8 +30,9 @@ EditProProject.propTypes = {
 const mapStateToProps = (state,ownsProps) => {
     return {
         operateData : state.project.operateData,
+        onlinePublish:state.project.operateData.publish,
         publish: getListPublishResult(state),
-        loading:!!state.proCategory.loading||!!state.project.loading
+        loading:!!state.project.loading
     }
 }
 

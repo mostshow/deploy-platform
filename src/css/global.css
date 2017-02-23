@@ -1,7 +1,7 @@
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,strong{padding:0;margin:0;font-family:'Microsoft YaHei',Arial;}
 table{border-collapse:collapse;border-spacing:0;}
 li{list-style:none;}
-
+.fr{float:right;}
 .mgt5{margin-top: 5px;}
 .mgt10{margin-top: 10px;}
 .mgt15{margin-top: 15px;}
