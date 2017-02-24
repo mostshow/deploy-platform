@@ -50,18 +50,27 @@ class ProjectForm extends Component {
     render(){
         const { publish, loading, isEdit, operateData,onlinePublish } = this.props
         const project_id = operateData._id;
+        const accessDir = operateData.accessDir;
         // const projectPublish = operateData.publish;
         const data = publish.map((item) => {
+            let backupInfo = operateData.backupInfo
             if(~onlinePublish.indexOf(item._id))
                 item.state = true
             else
                 item.state = false
 
             if(item.generate)
-                item.generateDir = '/'+item._id.slice(0,10)+project_id.slice(0,10)
+                item.generateDir = '/'+accessDir
             else
                 item.generateDir = '/'
             item.key = item._id
+            if(backupInfo&&backupInfo[item.key]){
+                item.backupData =  backupInfo[item.key].backup
+                item.revertVersion = backupInfo[item.key].revertVersion
+            }else{
+                item.backupData = [];
+                item.revertVersion = ''
+            }
             item.address = `http://${item.domain}${item.generateDir}/index.html`
             return item;
         })
@@ -72,8 +81,8 @@ class ProjectForm extends Component {
                 // let address = `http://${record.domain}${record.generateDir}/index.html`
                 return <a href={record.address} target="_blank">{record.address}</a> }
             },
-            { title: '状态', key: 'state', render: (record) => {
-                return <span><Badge status={record.state?'success':'error'} /></span> }
+            { title: '上线状态', key: 'state', render: (record) => {
+                return <span><Badge status={record.state?'success':'default'} /></span> }
             },
             {
                     title: '操作',
@@ -102,28 +111,56 @@ class ProjectForm extends Component {
                                 <Popconfirm title="确定要下线吗？" onConfirm={() => this.handleOffline(record)}>
                                     <Button className='mgr5' type="danger"  size="small">下线</Button>
                                 </Popconfirm>
-                                <Popconfirm title="确定要回滚吗？" onConfirm={() => this.handleDel(record)}>
-                                    <Button size="small"  >回滚</Button>
-                                </Popconfirm>
                             </Button.Group>
 
                         )
                     }
             },
         ];
+        const expandedRowRender = (record) => {
+            const columns = [
+                { title: '备份版本', dataIndex: 'version', key: 'version' },
+                { title: '回滚状态', key: 'state', render: () => <span><Badge status="default" /></span> },
+                    {
+                        title: '操作',
+                        dataIndex: 'revert',
+                        key: 'revert',
+                        render: () => (
+                                <Popconfirm title="确定要回滚吗？" onConfirm={() => this.handleRevert(record)}>
+                                    <Button size="small"  >回滚</Button>
+                                </Popconfirm>
+                        ),
+                    },
+            ];
 
+            let data = record.backupData;
+            data = data.map((item,i)=>{
+                return {
+                    key: i,
+                    version: item,
+                    state: item == data.revertVersion?'success':'default',
+                }
+            })
+            return (
+                <Table
+                    columns={columns}
+                    dataSource={data}
+                    pagination={false}
+                />
+            );
+        };
         let container = (
             <div>
-                <div className="mgb30">
+
+                <div className=" titColumn">
                     <h3 className="mgb10"> 项目名：{operateData.name}</h3>
                     <p> 描述：{operateData.description}</p>
-                </div>
-                <div>
                 </div>
                 <Table
                     columns={columns}
                     dataSource={data}
                     pagination={false}
+                    expandedRowRender={expandedRowRender}
                 />
                 <Button  className="mgt10 fr" onClick={this.handleReturn} size="large">返回</Button>
             </div>

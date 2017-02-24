@@ -19,6 +19,7 @@ class ProjectForm extends Component {
                 name: toEditData.name,
                 gitPath: toEditData.gitPath,
                 branch: toEditData.branch,
+                accessDir: toEditData.accessDir || '',
                 description: toEditData.description,
             });
         }
@@ -53,11 +54,15 @@ class ProjectForm extends Component {
                     // let     branch= 'test-project';
                     // let     category='586f30605b502f92e8950968';
                     // let val = {name,gitPath,branch,category}
+                    if(!values.accessDir){
+                        delete values.accessDir
+                    }
                     loadCreateProject(values);
                     form.setFieldsValue({
                         name: '',
                         gitPath: '',
                         branch: '',
+                        accessDir:'',
                         category: '',
                         description:''
                     });
@@ -128,6 +133,11 @@ class ProjectForm extends Component {
                         rules: [{ required: true, message: '请输入项目名称!' }],
                     })(
                         <Input />
+                )}
+                </FormItem>
+                <FormItem {...formItemLayout} hasFeedback label="访问目录">
+                    {getFieldDecorator('accessDir' )(
+                        <Input placeholder="可不填，自动生成" />
                 )}
                 </FormItem>
                 <FormItem {...formItemLayout} label="项目类型"  hasFeedback>

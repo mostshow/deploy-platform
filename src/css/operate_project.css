@@ -1,1 +1,5 @@
 .mgr10{margin-right:10px;}
+.titColumn {border: 1px solid #dce0e6;border-radius: 2px;}
+.titColumn h3 {font: 16px "Microsoft YaHei";padding: 10px 15px;color: #444;background-color: #f7f8fa;border-bottom: 1px solid #dce0e6;border-top-right-radius: 1px;
+border-top-left-radius: 1px;}
+.titColumn p {padding: 10px 15px;font: 14px/24px "Microsoft YaHei";color: #666;}
