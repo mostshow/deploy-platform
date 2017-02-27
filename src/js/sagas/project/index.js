@@ -10,7 +10,7 @@ function* watchOffline() {
     while(true) {
         const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_OFFLINE_PROJECT)
         yield fork(createFetch(actions.project.offlineProject), apiname, requiredFields,{
-            succAct:actions.project.updateOperateData({...requiredFields,online:false}),
+            succAct:actions.project.updateOperateData({useResult:true}),
             succFn:function(){
                 message.success('下线成功！')
             },
@@ -20,11 +20,25 @@ function* watchOffline() {
         })
     }
 }
+function* watchRevert() {
+    while(true) {
+        const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_REVERT_PROJECT)
+        yield fork(createFetch(actions.project.revertProject), apiname, requiredFields,{
+            succAct:actions.project.updateOperateData({useResult:true}),
+            succFn:function(){
+                message.success('回滚成功！')
+            },
+            failFn:function(err){
+                message.error(err||'回滚失败！')
+            }
+        })
+    }
+}
 function* watchOnline() {
     while(true) {
         const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_ONLINE_PROJECT)
         yield fork(createFetch(actions.project.onlineProject), apiname, requiredFields,{
-            succAct:actions.project.updateOperateData({...requiredFields,online:true}),
+            succAct:actions.project.updateOperateData({useResult:true}),
             succFn:function(){
                 message.success('上线成功！')
             },
@@ -90,5 +104,5 @@ function* watchEdit() {
         })
     }
 }
-export default [fork(watchList),fork(watchCreate),fork(watchDel),fork(watchEdit), fork(watchOnline), fork(watchOffline)]
+export default [fork(watchList),fork(watchCreate),fork(watchDel),fork(watchEdit), fork(watchRevert), fork(watchOnline), fork(watchOffline)]
 

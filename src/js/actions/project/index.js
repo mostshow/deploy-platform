@@ -30,6 +30,13 @@ export const onlineProject = {
     failure: (apiurl, error) => action(ActionTypes.ONLINE_PROJECT.FAILURE, {apiurl, error}),
 }
 
+
+export const revertProject = {
+    request: (apiurl) => action(ActionTypes.REVERT_PROJECT.REQUEST, {apiurl}),
+    success: (apiurl, response) => action(ActionTypes.REVERT_PROJECT.SUCCESS, {apiurl, response}),
+    failure: (apiurl, error) => action(ActionTypes.REVERT_PROJECT.FAILURE, {apiurl, error}),
+}
+
 export const offlineProject = {
     request: (apiurl) => action(ActionTypes.OFFLINE_PROJECT.REQUEST, {apiurl}),
     success: (apiurl, response) => action(ActionTypes.OFFLINE_PROJECT.SUCCESS, {apiurl, response}),
@@ -46,9 +53,10 @@ export const loadEditProject = ( requiredFields = []) => action(ActionTypes.LOAD
 export const loadDelProject = ( requiredFields = []) => action(ActionTypes.LOAD_DEL_PROJECT, {apiname:'/project/del', requiredFields})
 export const loadOnlineProject = ( requiredFields = []) => action(ActionTypes.LOAD_ONLINE_PROJECT, {apiname:'/project/online', requiredFields})
 export const loadOfflineProject = ( requiredFields = []) => action(ActionTypes.LOAD_OFFLINE_PROJECT, {apiname:'/project/offline', requiredFields})
+export const loadRevertProject = ( requiredFields = []) => action(ActionTypes.LOAD_REVERT_PROJECT, {apiname:'/project/revert', requiredFields})
 
 
 
 
 
-export default {loadListProject ,loadCreateProject, loadOfflineProject, loadOnlineProject, loadEditProject,loadDelProject, editProjectBtn, operateProjectBtn}
+export default {loadListProject ,loadCreateProject, loadOfflineProject, loadOnlineProject, loadRevertProject, loadEditProject,loadDelProject, editProjectBtn, operateProjectBtn}

@@ -21,6 +21,7 @@ function rquireAuthApi(endpoint,Token){
 function *fetchEntity(entity, apiFn, url, params:{},actions={succAct:{},failAct:{},succFn:{},failFn:{}}) {
     let {succAct, failAct, succFn, failFn} = actions;
     let Token = localStorage.getItem('jwtToken') || 0;
+
     if(!rquireAuthApi(url,Token)){
         return;
     }

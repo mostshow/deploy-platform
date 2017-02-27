@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {ProjectOperate} from '../../components'
-import {loadOfflineProject, loadOnlineProject} from '../../actions/project'
+import {loadOfflineProject, loadOnlineProject, loadRevertProject} from '../../actions/project'
 import { navigate } from '../../actions'
 import { loadListPublish  } from '../../actions/publish'
 import { getListPublishResult } from '../../reducers/selectors'
@@ -16,10 +16,10 @@ class EditProProject extends Component {
         this.props.loadListPublish()
     }
     render() {
-        let {loadOnlineProject, loadOfflineProject, onlinePublish,  operateData, publish ,navigate, dispatch, loading} = this.props
+        let {loadOnlineProject, loadRevertProject, loadOfflineProject, onlinePublish,  operateData, publish ,navigate, dispatch, loading} = this.props
         return(
             <div className="create-form">
-                <ProjectOperate operateData={operateData} onlinePublish={onlinePublish}  navigate={navigate} dispatch={dispatch}  publish={publish} loading={loading} loadOnlineProject={loadOnlineProject}  loadOfflineProject={loadOfflineProject}/>
+                <ProjectOperate operateData={operateData} loadRevertProject={loadRevertProject}  onlinePublish={onlinePublish}  navigate={navigate} dispatch={dispatch}  publish={publish} loading={loading} loadOnlineProject={loadOnlineProject}  loadOfflineProject={loadOfflineProject}/>
             </div>
         )
     }
@@ -41,6 +41,7 @@ const mapDispatchToProps = (dispatch) => {
         loadOnlineProject: bindActionCreators(loadOnlineProject, dispatch),
         loadOfflineProject: bindActionCreators(loadOfflineProject, dispatch),
         loadListPublish:bindActionCreators(loadListPublish,dispatch),
+        loadRevertProject:bindActionCreators(loadRevertProject,dispatch),
         dispatch,
         navigate
     }

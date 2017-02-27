@@ -1,7 +1,7 @@
 
 
 import React, {Component , ProTypes} from 'react'
-import {Form, Button, Input , Radio, Select, Spin, Badge, Icon,  menu, Dropdown, Table, Popconfirm} from 'antd'
+import {Form, Button, Input , Radio, Select, Spin, Badge, Icon, Tag,  menu, Dropdown, Table, Popconfirm} from 'antd'
 import isEmpty from 'lodash/isEmpty'
 import  '../../../css/operate_project.css'
 
@@ -25,7 +25,7 @@ class ProjectForm extends Component {
         }
     }
 
-    handleOnline(record){
+    handleOnline(record) {
         let {loadOnlineProject, navigate, dispatch, operateData} = this.props
         let onlineData = {
             project_id:operateData._id,
@@ -34,7 +34,7 @@ class ProjectForm extends Component {
         loadOnlineProject({...onlineData})
         // dispatch(navigate(`/project/operate`))
     }
-    handleOffline(record){
+    handleOffline(record) {
         let {loadOfflineProject, navigate, dispatch, operateData} = this.props
         let offlineData = {
             project_id:operateData._id,
@@ -43,11 +43,23 @@ class ProjectForm extends Component {
         loadOfflineProject({...offlineData})
         // dispatch(navigate(`/project/operate`))
     }
+    handleRevert(record) {
+        let { operateData, loadRevertProject} = this.props
+        let revertData = {
+            project_id:operateData._id,
+            publish_id:record._id,
+            revertVersion:record.version
+        }
+        // console.log(revertDataData)
+
+        loadRevertProject({...revertData})
+
+    }
     handleReturn(){
         let { navigate, dispatch} = this.props
         dispatch(navigate(`/project/list`))
     }
-    render(){
+    render() {
         const { publish, loading, isEdit, operateData,onlinePublish } = this.props
         const project_id = operateData._id;
         const accessDir = operateData.accessDir;
@@ -89,7 +101,8 @@ class ProjectForm extends Component {
                     dataIndex: 'operation',
                     key: 'operation',
                     render: (text, record) => {
-                        var operateBtn;
+                        let operateBtn;
+                        let revert;
                         // if(record.state){
                         //     operateBtn = (
                         //         <Popconfirm title="确定要下线吗？" onConfirm={() => this.handleOffline(record)}>
@@ -103,14 +116,22 @@ class ProjectForm extends Component {
                         //     </Popconfirm>
                         //     )
                         // }
+                        if(record.revertVersion){
+                            revert = (
+                                <Tag color="cyan-inverse">（已回滚）</Tag>
+                            )
+                        }else{
+                            revert = ( <div></div> )
+                        }
                         return(
                             <Button.Group   type="ghost">
                                 <Popconfirm title="确定要上线吗？" onConfirm={() => this.handleOnline(record)}>
                                     <Button className='mgr5'  type="primary"  size="small">发布</Button>
                                 </Popconfirm>
                                 <Popconfirm title="确定要下线吗？" onConfirm={() => this.handleOffline(record)}>
-                                    <Button className='mgr5' type="danger"  size="small">下线</Button>
+                                    <Button className='mgr5'   size="small">下线</Button>
                                 </Popconfirm>
+                                {revert}
                             </Button.Group>
 
                         )
@@ -120,25 +141,24 @@ class ProjectForm extends Component {
         const expandedRowRender = (record) => {
             const columns = [
                 { title: '备份版本', dataIndex: 'version', key: 'version' },
-                { title: '回滚状态', key: 'state', render: () => <span><Badge status="default" /></span> },
-                    {
-                        title: '操作',
-                        dataIndex: 'revert',
-                        key: 'revert',
-                        render: () => (
-                                <Popconfirm title="确定要回滚吗？" onConfirm={() => this.handleRevert(record)}>
-                                    <Button size="small"  >回滚</Button>
-                                </Popconfirm>
-                        ),
-                    },
+                { title: '回滚状态', key: 'state', render: (text, record) => <span><Badge status={record.state} /></span> },
+                {
+                    title: '操作',
+                    dataIndex: 'revert',
+                    key: 'revert',
+                    render: (text, record, index) => (
+                            <Popconfirm title="确定要回滚吗？" onConfirm={() => this.handleRevert(record)}>
+                                <Button size="small"  >回滚</Button>
+                            </Popconfirm>
+                    ),
+                },
             ];
-
-            let data = record.backupData;
-            data = data.map((item,i)=>{
+            let data = record.backupData.map((item,i)=>{
                 return {
                     key: i,
+                    _id: record.key,
                     version: item,
-                    state: item == data.revertVersion?'success':'default',
+                    state: item == record.revertVersion ?'processing':'default',
                 }
             })
             return (

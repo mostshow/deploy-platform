@@ -16,20 +16,25 @@ function reducer(state = initialState, action = {}) {
             ...action
         }
         break;
+        //直接更改不会触发render
     case ActionTypes.UPDATE_OPERATE_PROJECT:
+        // console.log(action)
         let operateData = state.operateData;
-        let publish_id = action.publish_id;
-        let online = action.online;
-        let publish = operateData.publish.filter(function(item){
-            return item != publish_id
-        })
-        if(online){
-            publish.push(publish_id)
-        }
-        operateData.publish = publish;
+        let operate = state.operateProject.result;
+        // let publish_id = action.publish_id;
+        // let online = action.online;
+        // let publish = operateData.publish.filter(function(item){
+        //     return item != publish_id
+        // })
+        // if(online){
+        //     publish.push(publish_id)
+        // }
+        // operateData.publish = publish;
         return {
             ...state,
-            operateData
+            operateData:{
+                ...operate
+            }
         }
         break;
     default:
@@ -39,12 +44,15 @@ function reducer(state = initialState, action = {}) {
 
 const finnalReducer = composeReducers(
   reducer,
+  request(ActionTypes.REVERT_PROJECT.REQUEST),
+  failure(ActionTypes.REVERT_PROJECT.FAILURE),
+  success(ActionTypes.REVERT_PROJECT.SUCCESS,'operateProject'),
   request(ActionTypes.OFFLINE_PROJECT.REQUEST),
   failure(ActionTypes.OFFLINE_PROJECT.FAILURE),
-  success(ActionTypes.OFFLINE_PROJECT.SUCCESS,'offlineProject'),
+  success(ActionTypes.OFFLINE_PROJECT.SUCCESS,'operateProject'),
   request(ActionTypes.ONLINE_PROJECT.REQUEST),
   failure(ActionTypes.ONLINE_PROJECT.FAILURE),
-  success(ActionTypes.ONLINE_PROJECT.SUCCESS,'onlineProject'),
+  success(ActionTypes.ONLINE_PROJECT.SUCCESS,'operateProject'),
   request(ActionTypes.LIST_PROJECT.REQUEST),
   failure(ActionTypes.LIST_PROJECT.FAILURE),
   success(ActionTypes.LIST_PROJECT.SUCCESS,'listProject'),
