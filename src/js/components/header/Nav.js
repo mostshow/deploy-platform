@@ -26,6 +26,14 @@ export default class Nav extends Component {
                         <Link to="/category/create">添加栏目</Link>
                     </MenuItem>
                 </SubMenu>
+                <SubMenu key="imgCategory" title={<span><Icon type="tag" /><span>图片栏目</span></span>}>
+                    <MenuItem key="imgCategory-list">
+                        <Link to="/imgCategory/list">栏目列表</Link>
+                    </MenuItem>
+                    <MenuItem key="imgCategory-create">
+                        <Link to="/imgCategory/create">添加栏目</Link>
+                    </MenuItem>
+                </SubMenu>
                 <SubMenu key="publish" title={<span><Icon type="tag" /><span>服务器配置</span></span>}>
                     <MenuItem key="publish-list">
                         <Link to="/publish/list">服务器列表</Link>

@@ -7,6 +7,7 @@ import project from './modules/project'
 import proCategory from './modules/proCategory'
 import publish from './modules/publish'
 import roles from './modules/roles'
+import imgCategory from './modules/imgCategory'
 
 function entities(state = {}, action) {
     if (action.response && action.response.entities) {
@@ -56,6 +57,7 @@ const rootReducer = combineReducers({
     user,
     project,
     proCategory,
+    imgCategory,
     roles,
     messageTip,
     router

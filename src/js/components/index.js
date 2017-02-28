@@ -9,6 +9,9 @@ export  ProCategoryList  from './proCategory/ProCategoryList'
 export  ProCategoryForm  from './proCategory/ProCategoryForm'
 
 
+export  ImgCategoryList  from './imgCategory/ImgCategoryList'
+export  ImgCategoryForm  from './imgCategory/ImgCategoryForm'
+
 export  PublishList  from './publish/PublishList'
 export  PublishForm  from './publish/PublishForm'
 

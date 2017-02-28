@@ -21,6 +21,10 @@ export default (
       <Route  name='category' path="/category/edit" breadcrumbName="category" onEnter={requireAuth} component={Containers.EditProCategory}/>
 
 
+      <Route  name='imgCategory' path="/imgCategory/list" breadcrumbName="imgCategory"  component={Containers.ImgCategoryPage}/>
+      <Route  name='imgCategory' path="/imgCategory/create" breadcrumbName="imgCategory" onEnter={requireAuth} component={Containers.CreateImgCategory}/>
+      <Route  name='imgCategory' path="/imgCategory/edit" breadcrumbName="imgCategory" onEnter={requireAuth} component={Containers.EditImgCategory}/>
+
       <Route  name='publish' path="/publish/list" breadcrumbName="publish"  component={Containers.PublishPage}/>
       <Route  name='publish' path="/publish/create" breadcrumbName="publish" onEnter={requireAuth} component={Containers.CreatePublish}/>
       <Route  name='publish' path="/publish/edit" breadcrumbName="publish" onEnter={requireAuth} component={Containers.EditPublish}/>
