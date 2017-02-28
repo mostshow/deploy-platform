@@ -9,13 +9,19 @@ export const getListProCategoryResult = (state) => {
     }
     return []
 }
+export const getListImageResult = (state) => {
+    if(state.image.listImage&&state.image.listImage.code==0){
+        return state.image.listImage.result.reData
+    }
+    return []
+}
+
 export const getListImgCategoryResult = (state) => {
     if(state.imgCategory.listImgCategory&&state.imgCategory.listImgCategory.code==0){
         return state.imgCategory.listImgCategory.result.reData
     }
     return []
 }
-
 export const getListPublishResult = (state) => {
     if(state.publish.listPublish&&state.publish.listPublish.code==0){
         return state.publish.listPublish.result.reData

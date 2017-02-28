@@ -8,6 +8,7 @@ export * as project from './project'
 export * as proCategory from './proCategory'
 export * as imgCategory from './imgCategory'
 export * as publish from './publish'
+export * as image from './image'
 export * as user from './user'
 export * as roles from './roles'
 

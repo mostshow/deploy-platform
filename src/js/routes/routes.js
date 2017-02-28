@@ -21,6 +21,9 @@ export default (
       <Route  name='category' path="/category/edit" breadcrumbName="category" onEnter={requireAuth} component={Containers.EditProCategory}/>
 
 
+      <Route  name='image' path="/image/list" breadcrumbName="image"  component={Containers.ImagePage}/>
+      <Route  name='image' path="/image/create" breadcrumbName="image" onEnter={requireAuth} component={Containers.CreateImage}/>
+      <Route  name='image' path="/image/edit" breadcrumbName="image" onEnter={requireAuth} component={Containers.EditImage}/>
       <Route  name='imgCategory' path="/imgCategory/list" breadcrumbName="imgCategory"  component={Containers.ImgCategoryPage}/>
       <Route  name='imgCategory' path="/imgCategory/create" breadcrumbName="imgCategory" onEnter={requireAuth} component={Containers.CreateImgCategory}/>
       <Route  name='imgCategory' path="/imgCategory/edit" breadcrumbName="imgCategory" onEnter={requireAuth} component={Containers.EditImgCategory}/>

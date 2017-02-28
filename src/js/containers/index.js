@@ -26,6 +26,11 @@ export  ImgCategoryPage from './imgCategory/ImgCategory'
 export  CreateImgCategory from './imgCategory/CreateImgCategory'
 export  EditImgCategory from './imgCategory/EditImgCategory'
 
+
+export  ImagePage from './image/Image'
+export  CreateImage from './image/CreateImage'
+export  EditImage from './image/EditImage'
+
 export  Login  from './user/Login'
 export  UserPage  from './user/User'
 export  CreateUser  from './user/CreateUser'

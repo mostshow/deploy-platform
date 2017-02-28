@@ -1,24 +1,24 @@
 
 import createFetch from '../fetch'
-import * as ActionTypes from '../../constants/imgCategory'
+import * as ActionTypes from '../../constants/image'
 import { take, fork, put, call, select} from 'redux-saga/effects'
-import { getListImgCategory} from '../../reducers/selectors'
+import { getListImage} from '../../reducers/selectors'
 import * as actions from '../../actions'
 import { message} from 'antd'
 
-const fetchListImgCategory = createFetch(actions.imgCategory.listImgCategory)
+const fetchListImage = createFetch(actions.image.listImage)
 
 function *loadListProcategory(apiname, requiredFields){
-  const listImgCategory = yield select(getListImgCategory)
-  if(!listImgCategory){
-    yield call(fetchListImgCategory,apiname, requiredFields)
+  const listImage = yield select(getListImage)
+  if(!listImage){
+    yield call(fetchListImage,apiname, requiredFields)
   }
 }
 
 function* watchList() {
     while(true) {
-        const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_LIST_IMGCATEGORY)
-        yield fork(fetchListImgCategory, apiname, requiredFields,{
+        const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_LIST_IMAGE)
+        yield fork(fetchListImage, apiname, requiredFields,{
             succFn:function(){
                 message.success('加载完成！')
             },
@@ -30,8 +30,8 @@ function* watchList() {
 }
 function* watchCreate() {
     while(true) {
-        const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_CREATE_IMGCATEGORY)
-        yield fork(createFetch(actions.imgCategory.createImgCategory), apiname, requiredFields,{
+        const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_CREATE_IMAGE)
+        yield fork(createFetch(actions.image.createImage), apiname, requiredFields,{
             // succAct:actions.navigate('/category/list'),
             succFn:function(){
                 message.success('新建成功！')
@@ -46,9 +46,9 @@ function* watchCreate() {
 function* watchDel() {
 
     while(true) {
-        const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_DEL_IMGCATEGORY)
-        yield fork(createFetch(actions.imgCategory.delImgCategory), apiname, requiredFields,{
-            succAct:actions.imgCategory.loadListImgCategory(),
+        const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_DEL_IMAGE)
+        yield fork(createFetch(actions.image.delImage), apiname, requiredFields,{
+            succAct:actions.image.loadListImage(),
             succFn:function(){
                 message.success('删除成功！')
             },
@@ -60,9 +60,9 @@ function* watchDel() {
 }
 function* watchEdit() {
     while(true) {
-        const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_EDIT_IMGCATEGORY)
-        yield fork(createFetch(actions.imgCategory.editImgCategory), apiname, requiredFields,{
-            succAct:actions.navigate('imgCategory/list'),
+        const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_EDIT_IMAGE)
+        yield fork(createFetch(actions.image.editImage), apiname, requiredFields,{
+            succAct:actions.navigate('image/list'),
             succFn:function(){
                 message.success('修改成功！')
             },
