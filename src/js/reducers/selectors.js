@@ -11,7 +11,7 @@ export const getListProCategoryResult = (state) => {
 }
 export const getListImgCategoryResult = (state) => {
     if(state.imgCategory.listImgCategory&&state.imgCategory.listImgCategory.code==0){
-        return state.imgCategory.listImgCategory.result
+        return state.imgCategory.listImgCategory.result.reData
     }
     return []
 }
