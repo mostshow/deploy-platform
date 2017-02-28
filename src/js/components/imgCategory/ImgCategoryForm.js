@@ -41,7 +41,7 @@ class ImgCategoryForm extends Component {
     }
     handleReturn(){
         let { navigate, dispatch} = this.props
-        dispatch(navigate(`/category/list`))
+        dispatch(navigate(`/imgCategory/list`))
     }
     render(){
         let {form, loading} = this.props;

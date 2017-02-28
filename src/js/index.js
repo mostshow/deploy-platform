@@ -15,6 +15,7 @@ import rootSaga from './sagas'
 const store = configureStore(window.__INITIAL_STATE__)
 
 store.runSaga(rootSaga)
+
 let rootElement = document.getElementById('app')
 if (localStorage.jwtToken) {
   store.dispatch(user.setCurrentUser(jwtDecode(localStorage.jwtToken)));

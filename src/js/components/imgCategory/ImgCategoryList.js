@@ -20,7 +20,7 @@ export default class ImgCategoryList extends Component {
     handleEdit (toEditData){
         let {actions, navigate, dispatch} = this.props
         actions.editImgCategoryBtn({toEditData})
-        dispatch(navigate(`/category/edit`))
+        dispatch(navigate(`/imgCategory/edit`))
 
     }
 

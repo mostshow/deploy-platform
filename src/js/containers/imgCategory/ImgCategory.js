@@ -46,7 +46,9 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 const getData= (state) => {
+
     let data =  getListImgCategoryResult(state)
+        console.log(data)
     let dataSource = [];
         data.forEach(function(item){
             let temp ={}
