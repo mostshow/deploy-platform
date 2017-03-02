@@ -90,6 +90,7 @@
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2",
+    "react-dropzone": "^3.11.0",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.2",
     "react-router-bootstrap": "^0.23.1",
@@ -100,6 +101,7 @@
     "redux-saga": "^0.14.3",
     "redux-thunk": "^2.2.0",
     "reselect": "^2.5.4",
+    "superagent": "^3.5.0",
     "whatwg-fetch": "^2.0.2"
   }
 }

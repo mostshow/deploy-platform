@@ -5,17 +5,23 @@ import { bindActionCreators } from 'redux'
 import {ImageForm} from '../../components'
 import {loadCreateImage} from '../../actions/image'
 import { navigate } from '../../actions'
+import { loadListImgCategory  } from '../../actions/imgCategory'
+import { getListImgCategoryResult } from '../../reducers/selectors'
 
 class CreateImage extends Component {
     constructor(props) {
         super(props)
     }
+
+    componentWillMount() {
+        this.props.loadListImgCategory()
+    }
     render() {
-        let {loadCreateImage, loading, navigate, dispatch} = this.props
+        let {loadCreateImage, imgCategory, loading, navigate, dispatch} = this.props
         return(
             <div className="create-form">
-                <h2 className='mgb20 tac'>新建栏目</h2>
-                <ImageForm loading={loading}  navigate={navigate} dispatch={dispatch}  loadCreateImage={loadCreateImage}/>
+                <h2 className='mgb20 tac'>添加图片</h2>
+                <ImageForm loading={loading} imgCategory={imgCategory}  navigate={navigate} dispatch={dispatch}  loadCreateImage={loadCreateImage}/>
             </div>
         )
     }
@@ -25,13 +31,15 @@ CreateImage.propTypes = {
 }
 const mapStateToProps = (state,ownsProps) => {
     return {
-        loading:!!state.image.loading
+        imgCategory:getListImgCategoryResult(state),
+        loading:!!state.imgCategory.loading||!!state.image.loading
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         loadCreateImage: bindActionCreators(loadCreateImage, dispatch),
+        loadListImgCategory:bindActionCreators(loadListImgCategory,dispatch),
         navigate,
         dispatch
     }
