@@ -4,69 +4,66 @@ import React, {Component , ProTypes} from 'react'
 import {Form, Button, Input , Radio, Select, Spin, Upload, Icon, Modal} from 'antd'
 import isEmpty from 'lodash/isEmpty'
 import '../../../css/image.css'
+import Dropzone from 'react-dropzone';
+import request from 'superagent';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
+const UPLOAD_URL = 'http://localhost:3002/api/image/create';
+const dropZoneStyle = {
+    width: '100%',
+    height: 100,
+    borderWidth: 2,
+    borderColor: '#666',
+    borderStyle: 'dashed',
+    borderRadius: 5
+};
+
 class ImageForm extends Component {
     constructor(props){
         super(props)
 
         this.state = {
+            files: [],
             previewVisible: false,
             previewImage: '',
-            uploaderProps : {
-                action: "http://localhost:3002/api/image/create",
-                data: { categoryId: 1, size: 2 },
-                multiple: true,
-                withCredentials:true,
-                listType: "picture-card",
-                showUploadListr: false,
-                beforeUpload(file) {
-                    console.log('beforeUpload', file.name);
-                },
-                onStart: (file) => {
-                    console.log('onStart', file.name);
-                    // this.refs.inner.abort(file);
-                },
-                onSuccess(file) {
-                    console.log('onSuccess', file);
-                },
-                onProgress(step, file) {
-                    console.log('onProgress', Math.round(step.percent), file.name);
-                },
-                onError(err) {
-                    console.log('onError', err);
-                },
-            }
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.handleReturn = this.handleReturn.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
-        this.handlePreview = this.handlePreview.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.beforeUpload = this.beforeUpload.bind(this);
-    }
-    beforeUpload(fileList){
-        console.log(arguments)
-        console.log({ fileList })
-        // this.setState({ fileList })
-        // return false;
-    }
-    handleCancel(){
-        this.setState({ previewVisible: false })
+        this.onOpenClick = this.onOpenClick.bind(this);
+        this.onDrop = this.onDrop.bind(this);
     }
 
-    handlePreview(file) {
-        this.setState({
-            previewImage: file.url || file.thumbUrl,
-            previewVisible: true,
+    onDrop(acceptedFiles) {
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                // this.setState({
+                //     files: acceptedFiles
+                // });
+                console.log('form: ', values);
+                let upload = request.post(UPLOAD_URL)
+                .withCredentials()
+                .field('categoryId', values.category)
+                .field('file', acceptedFiles);
+
+                upload.end((err, response) => {
+                    if (err) {
+                        console.error(err);
+                    }
+
+                    console.log(response)
+                    // if (response.body.secure_url !== '') {
+                    //     this.setState({
+                    //         uploadedFileCloudinaryUrl: response.body.secure_url
+                    //     });
+                    // }
+                });
+            }
         });
     }
 
-    handleChange ({ fileList }){
-        // return;
-        console.log({fileList})
-        this.setState({ fileList })
+    onOpenClick() {
+      this.dropzone.open();
     }
 
     componentDidMount() {
@@ -78,10 +75,6 @@ class ImageForm extends Component {
             });
         }
     }
-    componentWillMount() {
-        let { imgCategory } = this.props;
-    }
-
     onSubmit(e) {
         e.preventDefault();
         let { isEdit, toEditData, actions, loadEditImage, loadCreateImage, form} = this.props;
@@ -122,12 +115,6 @@ class ImageForm extends Component {
             labelCol: { span: 6 },
             wrapperCol: { span: 14 }
         };
-        const tailFormItemLayout = {
-            wrapperCol: {
-                span: 14,
-                offset: 6,
-            },
-        };
         const category = isEdit&&toEditData.type
 
         let formOptions = {
@@ -156,43 +143,32 @@ class ImageForm extends Component {
         }
 
 
+                    // <div>{this.state.files.map((file) => <img width="100" height='100' src={file.preview} /> )}</div>
         let container = (
             <div>
-                  <div className="clearfix">
-                      <Upload
-                          {...this.state.uploaderProps}
-                          onPreview={this.handlePreview}
-                          onChange={this.handleChange}
-                          beforeUpload={this.beforeUpload}
-                      >
-                      {uploadButton}
-                    </Upload>
-                    <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-                      <img alt="example" style={{ width: '100%' }} src={previewImage} />
-                    </Modal>
-                  </div>
+                <div>
+
                 <Form onSubmit={this.onSubmit}>
-                    <FormItem {...formItemLayout} hasFeedback label="图片名">
-                        {getFieldDecorator('name', {
-                            rules: [{ required: true, message: '请输入图片名称!' }],
-                        })(
-                            <Input />
-                    )}
-                </FormItem>
                 <FormItem {...formItemLayout} label="图片类型"  hasFeedback>
                     {getFieldDecorator('category',{...formOptions})(
                         <Select placeholder="请选择图片类型"  >
                             {categoryOptions}
                         </Select>
                 )}
-            </FormItem>
+                </FormItem>
+                </Form>
+                    <Dropzone multiple={false} ref={(node) => { this.dropzone = node; }} style={dropZoneStyle} onDrop={this.onDrop}>
+                        <h2 style={{textAlign: 'center'}}>点击 / 拖拽</h2>
+                    </Dropzone>
+                    {this.state.files.length > 0 ? <div>
+                    <h2>Uploading {this.state.files.length} files...</h2>
+                    <ul>
+                        <li></li>
+                    </ul>
+                    </div> : null}
+                </div>
 
-            <FormItem {...tailFormItemLayout}>
-                <Button type="primary" htmlType="submit" size="large">提交</Button>
-                <Button  className="mgl10" onClick={this.handleReturn} size="large">返回</Button>
-            </FormItem>
-        </Form>
-    </div>
+            </div>
 )
 return(
     <div>
@@ -205,5 +181,6 @@ ImageForm.propTypes = {
 
 }
 export default Form.create()(ImageForm)
+
 
 
