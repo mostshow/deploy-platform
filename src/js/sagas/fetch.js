@@ -5,6 +5,7 @@ import {API_FILTER} from '../constants/ServerTypes'
 import { api } from '../services'
 import {message } from 'antd';
 import { isEmpty,isFunction } from 'lodash';
+import { navigate } from '../actions'
 
 message.config({
     duration: 2
@@ -36,6 +37,10 @@ function *fetchEntity(entity, apiFn, url, params:{},actions={succAct:{},failAct:
             if(isFunction(succFn))
                 succFn()
 
+        }else if(response.code == -3){
+                let loginAction = navigate('/login')
+                message.warning(response.msg)
+                yield put(loginAction)
         }else{
             yield put( entity.failure(url, response) )
 

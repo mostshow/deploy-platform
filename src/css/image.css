@@ -8,3 +8,24 @@
   font-size: 12px;
   color: #666;
 }
+
+.list_img {overflow:hidden;margin-top:10px;}
+.list_img .copy_input{width:150px;}
+.list_img li { width:150px; height:200px; float:left;margin-right:20px;position:relative; }
+.list_img li .deleteImg {
+    position: absolute;
+    background: #000;
+    width: 20px;
+    display: inline-block;
+    color: #FFF;
+    text-align: center;
+    line-height: 20px;
+    height: 20px;
+    cursor: pointer;
+    opacity: 0.5;
+    display:none;
+}
+.list_img li:hover .deleteImg{
+     display:block;
+}
+.list_img li a{display:inline-block;height:160px;width:150px;}

@@ -17,11 +17,11 @@ class CreateImage extends Component {
         this.props.loadListImgCategory()
     }
     render() {
-        let {loadCreateImage, imgCategory, loading, navigate, dispatch} = this.props
+        let {loadCreateImage, imgCategory, loading, jump, dispatch} = this.props
         return(
             <div className="create-form">
                 <h2 className='mgb20 tac'>添加图片</h2>
-                <ImageForm loading={loading} imgCategory={imgCategory}  navigate={navigate} dispatch={dispatch}  loadCreateImage={loadCreateImage}/>
+                <ImageForm loading={loading} imgCategory={imgCategory}  jump={jump} dispatch={dispatch}  loadCreateImage={loadCreateImage}/>
             </div>
         )
     }
@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadCreateImage: bindActionCreators(loadCreateImage, dispatch),
         loadListImgCategory:bindActionCreators(loadListImgCategory,dispatch),
-        navigate,
+        jump : bindActionCreators(navigate, dispatch),
         dispatch
     }
 }

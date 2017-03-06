@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { default as actionsCreate  } from '../../actions/image'
 import { navigate } from '../../actions'
-import { getListImageResult } from '../../reducers/selectors'
+import { getListImageResult, getListImgCategoryResult } from '../../reducers/selectors'
+import { loadListImgCategory  } from '../../actions/imgCategory'
 
 import {ImageList} from '../../components'
 
@@ -12,12 +13,16 @@ class ImagePage extends Component {
         super(props)
     }
     componentWillMount() {
-        this.props.actions.loadListImage()
+        this.props.loadListImgCategory()
+        this.props.actions.loadListImage({
+            dataFrom:0,
+            dataCount:10
+        })
     }
     render() {
-        let {data,actions,visible,loading,isEdit, dispatch, navigate} = this.props
+        let {data,actions,visible,loading,isEdit, dispatch, navigate, imgCategory} = this.props
         return (
-            <ImageList data={data} navigate={navigate} dispatch={dispatch} isEdit={isEdit}  visible={visible} loading={loading} actions={actions}/>
+            <ImageList data={data} navigate={navigate} imgCategory={imgCategory} dispatch={dispatch} isEdit={isEdit}  visible={visible} loading={loading} actions={actions}/>
         )
     }
 }
@@ -31,15 +36,17 @@ ImagePage.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
+        imgCategory:getListImgCategoryResult(state),
         data:getData(state),
         visible:state.image.visible,
-        loading:state.image.loading
+        loading:!!state.imgCategory.loading||!!state.image.loading,
 
     }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
       actions: bindActionCreators(actionsCreate, dispatch),
+      loadListImgCategory: bindActionCreators(loadListImgCategory, dispatch),
       navigate,
       dispatch
 
@@ -48,14 +55,13 @@ const mapDispatchToProps = (dispatch) => {
 const getData= (state) => {
     let data =  getListImageResult(state)
     let dataSource = [];
-        data.forEach(function(item){
+        data&&data.reData.forEach(function(item){
             let temp ={}
             temp.key = item._id;
-            temp.name = item.name;
-            temp.updateBy = item.updateBy&&item.updateBy.username;
-            temp.createBy = item.createBy&&item.createBy.username;
+            temp.url = item.url;
+            temp.category = item.category.name;
             dataSource.push(temp)
         })
-    return {dataSource:dataSource}
+    return {dataSource:dataSource, totalRecord:data.totalRecord}
 }
 export default connect(mapStateToProps,mapDispatchToProps )(ImagePage)

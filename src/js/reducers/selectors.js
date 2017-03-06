@@ -11,9 +11,12 @@ export const getListProCategoryResult = (state) => {
 }
 export const getListImageResult = (state) => {
     if(state.image.listImage&&state.image.listImage.code==0){
-        return state.image.listImage.result.reData
+        return state.image.listImage.result
     }
-    return []
+    return {
+        reData:[],
+        totalRecord:0
+    }
 }
 
 export const getListImgCategoryResult = (state) => {

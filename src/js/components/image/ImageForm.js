@@ -1,15 +1,16 @@
 
 
 import React, {Component , ProTypes} from 'react'
-import {Form, Button, Input , Radio, Select, Spin, Upload, Icon, Modal} from 'antd'
-import isEmpty from 'lodash/isEmpty'
-import '../../../css/image.css'
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
+import {Form, Button, Input , Radio, Select, Spin, message} from 'antd'
+import ImageViewLi from './ImageViewLi'
+import { UPLOAD_URL } from '../../constants/ServerTypes'
+import isEmpty from 'lodash/isEmpty'
+import '../../../css/image.css'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
-const UPLOAD_URL = 'http://localhost:3002/api/image/create';
 const dropZoneStyle = {
     width: '100%',
     height: 100,
@@ -24,9 +25,8 @@ class ImageForm extends Component {
         super(props)
 
         this.state = {
-            files: [],
-            previewVisible: false,
-            previewImage: '',
+            fileList: [],
+            uploading: false
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.handleReturn = this.handleReturn.bind(this);
@@ -35,28 +35,36 @@ class ImageForm extends Component {
     }
 
     onDrop(acceptedFiles) {
+        let  { jump } = this.props
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                // this.setState({
-                //     files: acceptedFiles
-                // });
-                console.log('form: ', values);
+                this.setState({
+                    uploading: true,
+                    //fileList:this.state.fileList
+                });
+
                 let upload = request.post(UPLOAD_URL)
                 .withCredentials()
                 .field('categoryId', values.category)
                 .field('file', acceptedFiles);
 
-                upload.end((err, response) => {
-                    if (err) {
+                upload.end((err, res) => {
+                    if (err || !res.ok) {
+                        message.error(err||'连接错误！')
                         console.error(err);
                     }
-
-                    console.log(response)
-                    // if (response.body.secure_url !== '') {
-                    //     this.setState({
-                    //         uploadedFileCloudinaryUrl: response.body.secure_url
-                    //     });
-                    // }
+                    let response = res.body;
+                    if(response.code == -3){
+                        message.warning(response.msg)
+                        jump('/login')
+                    }else{
+                        let fileList = this.state.fileList
+                        fileList.push(response.result)
+                        this.setState({
+                            fileList,
+                            uploading: false
+                        });
+                    }
                 });
             }
         });
@@ -103,19 +111,19 @@ class ImageForm extends Component {
         });
     }
     handleReturn(){
-        let { navigate, dispatch} = this.props
-        dispatch(navigate(`/image/list`))
+        this.props.jump(`/image/list`)
     }
     render(){
-        const {form, imgCategory, loading, isEdit, toEditData} = this.props
-        const { previewVisible, previewImage, fileList } = this.state;
-        const getFieldDecorator = form.getFieldDecorator
-        const categoryOptions = []
-        const formItemLayout = {
+        let {form, imgCategory, loading, isEdit, toEditData} = this.props
+        let { fileList, uploading } = this.state;
+        let getFieldDecorator = form.getFieldDecorator
+        let categoryOptions = []
+        let formItemLayout = {
             labelCol: { span: 6 },
             wrapperCol: { span: 14 }
         };
-        const category = isEdit&&toEditData.type
+        let category = isEdit&&toEditData.type
+        let isLoading = loading||uploading;
 
         let formOptions = {
             rules: [
@@ -123,12 +131,6 @@ class ImageForm extends Component {
             ],
             onChange: this.handleSelectChange
         }
-        const uploadButton = (
-          <div>
-            <Icon type="plus" />
-            <div className="ant-upload-text">Upload</div>
-          </div>
-        );
         if(!isEmpty(imgCategory)){
             imgCategory.forEach(item => {
                 if(category&&category == item.name){
@@ -160,21 +162,16 @@ class ImageForm extends Component {
                     <Dropzone multiple={false} ref={(node) => { this.dropzone = node; }} style={dropZoneStyle} onDrop={this.onDrop}>
                         <h2 style={{textAlign: 'center'}}>点击 / 拖拽</h2>
                     </Dropzone>
-                    {this.state.files.length > 0 ? <div>
-                    <h2>Uploading {this.state.files.length} files...</h2>
-                    <ul>
-                        <li></li>
-                    </ul>
-                    </div> : null}
+                    <ImageViewLi fileList={fileList} />
                 </div>
 
             </div>
-)
-return(
-    <div>
-        <Spin spinning={loading}>{container}</Spin>
-    </div>
-)
+        )
+        return(
+            <div>
+                <Spin spinning={isLoading}>{container}</Spin>
+            </div>
+        )
     }
 }
 ImageForm.propTypes = {
