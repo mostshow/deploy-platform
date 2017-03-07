@@ -27,10 +27,9 @@ export default class ImageList extends Component {
         }
 
     }
-    handleDel (image) {
-        let id = image.key;
-        console.log(image)
-        // this.props.actions.loadDelImage({id});
+    handleDel (key,url) {
+        let id = key;
+        this.props.actions.loadDelImage({id,url});
     }
     onSelect(key){
         let category = key;

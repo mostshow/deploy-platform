@@ -21,7 +21,7 @@ export default class ImageViewLi extends React.Component {
                     <ul className="list_img">
                         {fileList.map((file) =>
                         <li key={file.key}>
-                            <span className="deleteImg" key={file.key} onClick={handleDel}>x</span>
+                            <span className="deleteImg" key={file.key} onClick={handleDel.bind(this,file.key,file.url)}>x</span>
                             <a target='_blank' href={file.url} >
                                 <img width="160" height='160' src={file.url}/>
                             </a>
