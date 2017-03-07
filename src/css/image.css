@@ -9,7 +9,7 @@
   color: #666;
 }
 
-.list_img {overflow:hidden;margin-top:10px;}
+.list_img {overflow:hidden;margin-top:50px;}
 .list_img .copy_input{width:150px;}
 .list_img li { width:150px; height:200px; float:left;margin-right:20px;position:relative; }
 .list_img li .deleteImg {

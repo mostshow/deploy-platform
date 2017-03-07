@@ -4,9 +4,6 @@ import {Input, Button, Row, Col, message} from 'antd'
 import CopyToClipboard from 'react-copy-to-clipboard'
 
 export default class ImageViewLi extends React.Component {
-    // constructor(props){
-    //     super(props)
-    // }
 
     onCopy(){
         message.success('复制成功！')

@@ -58,7 +58,7 @@ export default class UserList extends Component {
 
         let container = (
             <div className="container">
-                <Table dataSource={data.dataSource} columns={columns} bordered />
+                <Table dataSource={data.dataSource} pagination={false}  columns={columns} bordered />
             </div>
         )
 

@@ -16,13 +16,14 @@ class ImagePage extends Component {
         this.props.loadListImgCategory()
         this.props.actions.loadListImage({
             dataFrom:0,
+            category:0,
             dataCount:10
         })
     }
     render() {
-        let {data,actions,visible,loading,isEdit, dispatch, navigate, imgCategory} = this.props
+        let {data, actions, visible, pagination, loading,isEdit, dispatch, navigate, imgCategory} = this.props
         return (
-            <ImageList data={data} navigate={navigate} imgCategory={imgCategory} dispatch={dispatch} isEdit={isEdit}  visible={visible} loading={loading} actions={actions}/>
+            <ImageList data={data} pagination={pagination} navigate={navigate} imgCategory={imgCategory} dispatch={dispatch} isEdit={isEdit}  visible={visible} loading={loading} actions={actions}/>
         )
     }
 }
@@ -38,6 +39,7 @@ const mapStateToProps = (state) => {
     return {
         imgCategory:getListImgCategoryResult(state),
         data:getData(state),
+        pagination:state.image.pagination,
         visible:state.image.visible,
         loading:!!state.imgCategory.loading||!!state.image.loading,
 

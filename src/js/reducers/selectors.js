@@ -52,3 +52,6 @@ export const getListProjectResult = (state) => {
     }
     return []
 }
+
+export const getImagePagination = (state) => state.image.pagination
+

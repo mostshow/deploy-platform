@@ -11,3 +11,4 @@ export const DEL_IMAGE = createRequestTypes('DEL_IMAGE')
 export const CREATE_IMAGE = createRequestTypes('CREATE_IMAGE')
 
 export const EDIT_IMAGE_BTN = 'EDIT_IMAGE_BTN'
+export const UPDATE_IMAGE_PAGINATION = 'UPDATE_IMAGE_PAGINATION'

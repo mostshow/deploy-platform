@@ -29,14 +29,13 @@ export default class ImageList extends Component {
     }
     handleDel (key,url) {
         let id = key;
+        let pagination = this.state.pagination
+        this.props.actions.updateImagePagination({pagination});
         this.props.actions.loadDelImage({id,url});
     }
     onSelect(key){
         let category = key;
         let pagination = Object.assign(this.state.pagination,{category})
-        this.setState({
-            pagination
-        })
         this.loadListImage(pagination)
     }
     onShowSizeChange(page,pageSize){
@@ -54,7 +53,6 @@ export default class ImageList extends Component {
         this.loadListImage(pagination)
     }
     loadListImage(pagination){
-        console.log(pagination)
         this.props.actions.loadListImage({
             dataFrom:(pagination.page - 1)*pagination.pageSize,
             dataCount:pagination.pageSize,
@@ -64,7 +62,7 @@ export default class ImageList extends Component {
     }
     render() {
         const ctx  = this
-        const { data , imgCategory, actions, visible,dispatch, loading } = this.props
+        const { data , imgCategory, pagination, actions, visible,dispatch, loading } = this.props
         let categoryOptions = []
         if(!isEmpty(imgCategory)){
             categoryOptions.push(<Option defaultValue key={0}>全部</Option>)
@@ -87,8 +85,8 @@ export default class ImageList extends Component {
                         onChange={this.onChange}
                         showQuickJumper
                         showSizeChanger
-                        defaultCurrent={this.state.pagination.pagesize}
-                        defaultPageSize={this.state.pagination.pagesize}
+                        defaultCurrent={pagination.page}
+                        defaultPageSize={pagination.pagesize}
                         total={data.totalRecord}  />
                 </div>
                 <ImageViewLi fileList={data.dataSource} handleDel={this.handleDel} />

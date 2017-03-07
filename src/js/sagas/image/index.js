@@ -1,10 +1,10 @@
 
+import { message} from 'antd'
 import createFetch from '../fetch'
 import * as ActionTypes from '../../constants/image'
 import { take, fork, put, call, select} from 'redux-saga/effects'
-import { getListImage} from '../../reducers/selectors'
+import { getListImage, getImagePagination} from '../../reducers/selectors'
 import * as actions from '../../actions'
-import { message} from 'antd'
 
 const fetchListImage = createFetch(actions.image.listImage)
 
@@ -47,8 +47,13 @@ function* watchDel() {
 
     while(true) {
         const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_DEL_IMAGE)
+        const pagination = yield select(getImagePagination)
         yield fork(createFetch(actions.image.delImage), apiname, requiredFields,{
-            succAct:actions.image.loadListImage(),
+            succAct:actions.image.loadListImage({
+                dataFrom:(pagination.page - 1)*pagination.pageSize,
+                dataCount:pagination.pageSize,
+                category:pagination.category||0
+            }),
             succFn:function(){
                 message.success('删除成功！')
             },

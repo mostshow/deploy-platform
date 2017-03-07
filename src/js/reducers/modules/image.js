@@ -4,7 +4,11 @@ import * as ActionTypes from '../../constants/image'
 import {success , request ,failure , composeReducers} from '../../utils/tools'
 
 const initialState = {
-    // isEdit:false
+    pagination:{
+        pageSize:10,
+        page:1,
+        category:0
+    }
 };
 
 function reducer(state = initialState, action = {}) {
@@ -12,6 +16,10 @@ function reducer(state = initialState, action = {}) {
     case ActionTypes.EDIT_IMAGE_BTN:
         return {
             ...state,
+            ...action
+        }
+    case ActionTypes.UPDATE_IMAGE_PAGINATION:
+        return {
             ...action
         }
     default:
