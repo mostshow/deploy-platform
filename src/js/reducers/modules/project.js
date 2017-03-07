@@ -4,7 +4,11 @@ import * as ActionTypes from '../../constants/project'
 import {success , request ,failure , composeReducers} from '../../utils/tools'
 
 const initialState = {
-
+    pagination:{
+        pageSize:10,
+        page:1,
+        category:0
+    }
 };
 
 function reducer(state = initialState, action = {}) {
@@ -13,6 +17,11 @@ function reducer(state = initialState, action = {}) {
     case ActionTypes.OPERATE_PROJECT_BTN:
         return {
             ...state,
+            ...action
+        }
+        break;
+    case ActionTypes.UPDATE_PROJECT_PAGINATION:
+        return {
             ...action
         }
         break;

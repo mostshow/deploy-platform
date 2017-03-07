@@ -46,6 +46,7 @@ export const offlineProject = {
 export const editProjectBtn = (toEditData={}) => action(ActionTypes.EDIT_PROJECT_BTN,toEditData)
 export const operateProjectBtn = (operateData={}) => action(ActionTypes.OPERATE_PROJECT_BTN,operateData)
 export const updateOperateData = (operateData={}) => action(ActionTypes.UPDATE_OPERATE_PROJECT,operateData)
+export const updateProjectPagination = (pagination) => action(ActionTypes.UPDATE_PROJECT_PAGINATION,pagination)
 
 export const loadListProject = ( requiredFields = []) => action(ActionTypes.LOAD_LIST_PROJECT, {apiname:'/project/list', requiredFields})
 export const loadCreateProject = ( requiredFields = []) => action(ActionTypes.LOAD_CREATE_PROJECT, {apiname:'/project/create', requiredFields})
@@ -59,4 +60,4 @@ export const loadRevertProject = ( requiredFields = []) => action(ActionTypes.LO
 
 
 
-export default {loadListProject ,loadCreateProject, loadOfflineProject, loadOnlineProject, loadRevertProject, loadEditProject,loadDelProject, editProjectBtn, operateProjectBtn}
+export default {updateProjectPagination, loadListProject ,loadCreateProject, loadOfflineProject, loadOnlineProject, loadRevertProject, loadEditProject,loadDelProject, editProjectBtn, operateProjectBtn}

@@ -60,7 +60,7 @@ class App extends Component {
             <div>
                 <Header login={login} actions={actions}/>
                 <main className='main'>
-                <Nav />
+                <Nav login={login} />
                 <div className='content'>
                 <BreadNav navStatus={navStatus}/>
                 {children}

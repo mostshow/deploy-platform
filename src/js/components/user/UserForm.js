@@ -22,20 +22,19 @@ class ProjectForm extends Component {
         let { isEdit, toEditData} = this.props;
         if(this.props.isEdit){
             this.props.form.setFieldsValue({
-                name: toEditData.name,
-                gitPath: toEditData.gitPath,
-                branch: toEditData.branch,
-                // category: toEditData.type,
+
+                username: toEditData.username,
+                email: toEditData.email,
+                password: toEditData.password,
+                rePassword: toEditData.rePassword
+
             });
         }
-    }
-    componentWillMount() {
-        let { proCategory } = this.props;
     }
 
     onSubmit(e) {
         e.preventDefault();
-        let { isEdit, toEditData, actions, loadEditProject, loadCreateProject, form} = this.props;
+        let { isEdit, toEditData, actions, loadEditUser, loadCreateUser, form} = this.props;
         let params = form.getFieldsValue()
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
@@ -46,8 +45,7 @@ class ProjectForm extends Component {
                     }
                     loadEditUser(params);
                 }else{
-                    let val = {name,gitPath,branch,category}
-                    loadCreateUser(val);
+                    loadCreateUser(values);
                     form.setFieldsValue({
                         username: '',
                         email: '',
@@ -104,10 +102,11 @@ class ProjectForm extends Component {
             ],
             onChange: this.handleSelectChange
         }
+        let rolesOptions = []
         if(!isEmpty(roles)){
             roles.forEach(item => {
                 if(rolename&&rolename == item.rolename){
-                    rolesOptions.initialValue = item._id;
+                    formOptions.initialValue = item._id;
                     addOptions.push(<Option   key={item._id}>{item.rolename}</Option>)
                 }else
                     addOptions.push(<Option   key={item._id}>{item.rolename}</Option>)

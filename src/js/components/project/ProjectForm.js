@@ -24,10 +24,6 @@ class ProjectForm extends Component {
             });
         }
     }
-    componentWillMount() {
-        let { proCategory } = this.props;
-    }
-
     onSubmit(e) {
         e.preventDefault();
         let { isEdit, toEditData, actions, loadEditProject, loadCreateProject, form} = this.props;

@@ -18,10 +18,12 @@ function reducer(state = initialState, action = {}) {
             ...state,
             ...action
         }
+        break;
     case ActionTypes.UPDATE_IMAGE_PAGINATION:
         return {
             ...action
         }
+        break;
     default:
       return state;
   }

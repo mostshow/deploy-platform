@@ -19,6 +19,15 @@ export const getListImageResult = (state) => {
     }
 }
 
+export const getListProjectResult = (state) => {
+    if(state.project.listProject&&state.project.listProject.code==0){
+        return state.project.listProject.result
+    }
+    return {
+        reData:[],
+        totalRecord:0
+    }
+}
 export const getListImgCategoryResult = (state) => {
     if(state.imgCategory.listImgCategory&&state.imgCategory.listImgCategory.code==0){
         return state.imgCategory.listImgCategory.result.reData
@@ -46,12 +55,7 @@ export const getListRolesResult = (state) => {
 }
 
 
-export const getListProjectResult = (state) => {
-    if(state.project.listProject&&state.project.listProject.code==0){
-        return state.project.listProject.result.reData
-    }
-    return []
-}
 
 export const getImagePagination = (state) => state.image.pagination
+export const getProjectPagination = (state) => state.project.pagination
 

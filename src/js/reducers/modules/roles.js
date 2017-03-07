@@ -14,6 +14,7 @@ function reducer(state = initialState, action = {}) {
             ...state,
             ...action
         }
+        break;
     default:
       return state;
   }

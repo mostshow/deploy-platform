@@ -22,6 +22,7 @@ function reducer(state = initialState, action = {}) {
                 loginIsLoading:true
             }
         }
+        break;
     case ActionTypes.LOGIN_USER.SUCCESS:
         return {
             login:{
@@ -30,6 +31,7 @@ function reducer(state = initialState, action = {}) {
                 loginIsLoading:false
             }
         }
+        break;
     case ActionTypes.LOGIN_USER.FAILURE:
     case ActionTypes.LOGOUT_USER.SUCCESS:
     case ActionTypes.LOGOUT_USER.FAILURE:
@@ -39,6 +41,7 @@ function reducer(state = initialState, action = {}) {
                 loginUser:{}
             }
         }
+        break;
     case ActionTypes.SET_CURRENT_USER:
         return {
             login:{
@@ -47,6 +50,13 @@ function reducer(state = initialState, action = {}) {
                 loginIsLoading:false
             }
         }
+        break;
+    case ActionTypes.EDIT_USER_BTN:
+        return {
+            ...state,
+            ...action
+        }
+        break;
     default:
       return state;
   }

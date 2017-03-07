@@ -1,9 +1,10 @@
 
+import { message} from 'antd'
 import createFetch from '../fetch'
 import * as ActionTypes from '../../constants/project'
 import { take, fork} from 'redux-saga/effects'
 import * as actions from '../../actions'
-import { message} from 'antd'
+import { getProjectPagination} from '../../reducers/selectors'
 
 
 function* watchOffline() {
@@ -79,8 +80,13 @@ function* watchCreate() {
 function* watchDel() {
     while(true) {
         const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_DEL_PROJECT)
+        const pagination = yield select(getProjectPagination)
         yield fork(createFetch(actions.project.delProject), apiname, requiredFields,{
-            succAct:actions.project.loadListProject(),
+            succAct:actions.project.loadListProject({
+                dataFrom:(pagination.page - 1)*pagination.pageSize,
+                dataCount:pagination.pageSize,
+                category:pagination.category||0
+            }),
             succFn:function(){
                 message.success('删除成功！')
             },

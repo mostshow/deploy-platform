@@ -49,6 +49,7 @@ export const createUser = {
     failure: (apiurl, error) => action(ActionTypes.CREATE_USER.FAILURE, {apiurl, error}),
 }
 
+export const editUserBtn = (toEditData={}) => action(ActionTypes.EDIT_USER_BTN,toEditData)
 
 
 export const loadListUser = ( requiredFields = []) => action(ActionTypes.LOAD_LIST_USER, {apiname:'/user/list', requiredFields})
@@ -59,4 +60,4 @@ export const loadLoginUser = (requiredFields = {}) => action(ActionTypes.LOAD_LO
 export const loadLogoutUser = (requiredFields = {}) =>action(ActionTypes.LOAD_LOGOUT_USER, {apiname:'/user/logout', requiredFields})
 
 
-export default {loadListUser,loadCreateUser,loadEditUser,loadDelUser,loadLoginUser,loadLogoutUser}
+export default {loadListUser,loadCreateUser,loadEditUser,loadDelUser,loadLoginUser,loadLogoutUser, editUserBtn}

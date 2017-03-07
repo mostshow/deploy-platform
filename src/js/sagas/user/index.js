@@ -37,7 +37,7 @@ function* watchDel() {
     while(true) {
         const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_DEL_USER)
         yield fork(createFetch(actions.user.delUser), apiname, requiredFields,{
-            succAct:actions.project.loadListUser(),
+            succAct:actions.user.loadListUser(),
             succFn:function(){
                 message.success('删除成功！')
             },
