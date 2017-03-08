@@ -62,12 +62,12 @@ export default class ProjectList extends Component {
     }
 
     handleOperate (operateData){
-        actions.operateProjectBtn({operateData})
+        this.props.actions.operateProjectBtn({operateData})
         this.props.jump(`/project/operate`)
 
     }
     handleEdit (toEditData){
-        actions.editProjectBtn({toEditData})
+        this.props.actions.editProjectBtn({toEditData})
         this.props.jump(`/project/edit`)
 
     }

@@ -2,7 +2,7 @@
 import { message} from 'antd'
 import createFetch from '../fetch'
 import * as ActionTypes from '../../constants/project'
-import { take, fork} from 'redux-saga/effects'
+import { take, fork, select} from 'redux-saga/effects'
 import * as actions from '../../actions'
 import { getProjectPagination} from '../../reducers/selectors'
 
