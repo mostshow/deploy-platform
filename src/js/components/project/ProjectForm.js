@@ -37,7 +37,6 @@ class ProjectForm extends Component {
                     // loadCreateProject(val);
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('form: ', values);
                 if(isEdit){
                     let params = {
                         id:toEditData.key,

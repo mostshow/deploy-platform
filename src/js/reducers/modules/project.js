@@ -25,20 +25,9 @@ function reducer(state = initialState, action = {}) {
             ...action
         }
         break;
-        //直接更改不会触发render
     case ActionTypes.UPDATE_OPERATE_PROJECT:
-        // console.log(action)
         let operateData = state.operateData;
         let operate = state.operateProject.result;
-        // let publish_id = action.publish_id;
-        // let online = action.online;
-        // let publish = operateData.publish.filter(function(item){
-        //     return item != publish_id
-        // })
-        // if(online){
-        //     publish.push(publish_id)
-        // }
-        // operateData.publish = publish;
         return {
             ...state,
             operateData:{

@@ -8,7 +8,7 @@ const gutil = require('gulp-util');
 const PATHS = require('./webpack.paths');
 const webpackConf = require('./webpack.config');
 const webpackDevConf = require('./webpack.dev.config');
-const assets = path.resolve(__dirname,'../assets');
+const assets = path.resolve(__dirname,'../dist');
 
 gulp.task('lint', function() {
     var eslint = require('gulp-eslint');
@@ -39,7 +39,7 @@ gulp.task('lint', function() {
 gulp.task('clean', function() {
     var clean = require('gulp-clean');
 
-    return gulp.src(PATHS.build, {read: true}).pipe(clean());
+    return gulp.src(assets, {read: false}).pipe(clean({force:true}));
 });
 
 gulp.task('pack', function(done) {
@@ -51,17 +51,22 @@ gulp.task('pack', function(done) {
 });
 
 
-gulp.task('deploy', function() {
+gulp.task('release', ['pack'],function() {
     var sftp = require('gulp-sftp');
 
-    return gulp.src(assets + '/**')
+    return gulp.src(PATHS.build + '/**')
         .pipe(sftp({
-            host: '[remote server ip]',
-            remotePath: '/www/app/',
-            user: 'foo',
-            pass: 'bar'
+            host: '10.16.15.101',
+            remotePath: '/data/client/',
+            user: 'root',
+            pass: 'qgz#2016'
         }));
 });
+gulp.task('deploy',['clean'],function(){
+     gulp.start('release')
+})
+
+
 gulp.task('start', function() {
     nodemon({
         script: 'app.js',
@@ -84,7 +89,7 @@ gulp.task('default', function(done) {
         // done();
     });
 });
-gulp.task('default', function () { console.log('Hello Gulp!') });
+// gulp.task('default', function () { console.log('Hello Gulp!') });
 // gulp.task('default', ['pack'], function() {
 //     var replace = require('gulp-replace');
 //     var htmlmin = require('gulp-htmlmin');

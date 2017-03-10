@@ -50,7 +50,6 @@ class ProjectForm extends Component {
             publish_id:record._id,
             revertVersion:record.version
         }
-        // console.log(revertDataData)
 
         loadRevertProject({...revertData})
 

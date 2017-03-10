@@ -5,6 +5,7 @@ import {Header,Nav,BreadNav} from '../components'
 import { connect } from 'react-redux';
 import { navigate, updateRouterState } from '../actions'
 import { default as actionsCreate  } from '../actions/user'
+import '../../css/global.css'
 
 
 class App extends Component {

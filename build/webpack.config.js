@@ -20,7 +20,7 @@ const sassLoader = {
 };
 const lessLoader ={
     test: /\.less$/,
-    loader: ExtractTextPlugin.extract('style', 'css?minimize','autoprefixer', 'less')
+    loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
 }
 var config = {
     entry:PATHS.entries,

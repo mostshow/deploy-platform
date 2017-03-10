@@ -38,7 +38,7 @@ class Header extends Component {
         return (
             <div >
             <header className='header'>
-            <Link to="/">自动部署系统</Link>
+            <Link to="/">项目管理平台</Link>
             </header>
             { login.isAuthenticated ? userLinks : guestLinks }
             </div>

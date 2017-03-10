@@ -3,5 +3,5 @@ npm-debug.log
 server
 .DS_Store
 .gitignor
-
+dist
 
