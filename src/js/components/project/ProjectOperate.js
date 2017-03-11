@@ -71,7 +71,7 @@ class ProjectForm extends Component {
                 item.state = false
 
             if(item.generate)
-                item.generateDir = '/'+accessDir
+                item.generateDir = '/'+accessDir+'/'
             else
                 item.generateDir = '/'
             item.key = item._id
@@ -82,7 +82,7 @@ class ProjectForm extends Component {
                 item.backupData = [];
                 item.revertVersion = ''
             }
-            item.address = `http://${item.domain}${item.generateDir}/index.html`
+            item.address = `http://${item.domain}${item.generateDir}index.html`
             return item;
         })
         const columns = [
