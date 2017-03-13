@@ -58,7 +58,7 @@ const getData= (state) => {
             temp.domain = item.domain;
             temp.dir = item.dir;
             temp.createAt =moment(item.createAt).format("YYYY-MM-DD HH:ss");
-            temp.createBy = item.createBy.username;
+            temp.createBy = item.createBy&&item.createBy.username;
             dataSource.push(temp)
         })
     return {dataSource:dataSource}
