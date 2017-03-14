@@ -24,6 +24,7 @@ export  RolesForm  from './roles/RolesForm'
 export  LoginForm  from './user/LoginForm'
 export  UserList  from './user/UserList'
 export  UserForm  from './user/UserForm'
+export  UserModify  from './user/UserModify'
 
 
 

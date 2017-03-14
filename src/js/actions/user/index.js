@@ -48,6 +48,11 @@ export const createUser = {
     success: (apiurl, response) => action(ActionTypes.CREATE_USER.SUCCESS, {apiurl, response}),
     failure: (apiurl, error) => action(ActionTypes.CREATE_USER.FAILURE, {apiurl, error}),
 }
+export const modifyUser = {
+    request: (apiurl) => action(ActionTypes.MODIFY_USER.REQUEST, {apiurl}),
+    success: (apiurl, response) => action(ActionTypes.MODIFY_USER.SUCCESS, {apiurl, response}),
+    failure: (apiurl, error) => action(ActionTypes.MODIFY_USER.FAILURE, {apiurl, error}),
+}
 
 export const editUserBtn = (toEditData={}) => action(ActionTypes.EDIT_USER_BTN,toEditData)
 
@@ -56,8 +61,9 @@ export const loadListUser = ( requiredFields = []) => action(ActionTypes.LOAD_LI
 export const loadCreateUser = ( requiredFields = []) => action(ActionTypes.LOAD_CREATE_USER, {apiname:'/user/create', requiredFields})
 export const loadEditUser = ( requiredFields = []) => action(ActionTypes.LOAD_EDIT_USER, {apiname:'/user/edit', requiredFields})
 export const loadDelUser = ( requiredFields = []) => action(ActionTypes.LOAD_DEL_USER, {apiname:'/user/del', requiredFields})
+export const loadModifyUser = ( requiredFields = []) => action(ActionTypes.LOAD_MODIFY_USER, {apiname:'/user/modify', requiredFields})
 export const loadLoginUser = (requiredFields = {}) => action(ActionTypes.LOAD_LOGIN_USER, {apiname:'/user/login', requiredFields})
 export const loadLogoutUser = (requiredFields = {}) =>action(ActionTypes.LOAD_LOGOUT_USER, {apiname:'/user/logout', requiredFields})
 
 
-export default {loadListUser,loadCreateUser,loadEditUser,loadDelUser,loadLoginUser,loadLogoutUser, editUserBtn}
+export default {loadListUser,loadCreateUser,loadEditUser,loadDelUser, loadModifyUser, loadLoginUser,loadLogoutUser, editUserBtn}

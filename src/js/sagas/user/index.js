@@ -61,6 +61,19 @@ function* watchEdit() {
         })
     }
 }
+function* watchModify() {
+    while(true) {
+        const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_MODIFY_USER)
+        yield fork(createFetch(actions.user.modifyUser), apiname, requiredFields,{
+            succFn:function(){
+                message.success('修改成功！')
+            },
+            failFn:function(err){
+                message.error(err||'修改失败！')
+            }
+        })
+    }
+}
 function* watchLogin() {
     while(true) {
         const {apiname, requiredFields = []} = yield take(ActionTypes.LOAD_LOGIN_USER)
@@ -87,5 +100,5 @@ function* watchLogout() {
     }
 }
 
-export default [fork(watchLogin),fork(watchLogout),fork(watchList),fork(watchCreate),fork(watchDel),fork(watchEdit)]
+export default [fork(watchLogin),fork(watchLogout),fork(watchList),fork(watchCreate),fork(watchDel),fork(watchEdit),fork(watchModify)]
 

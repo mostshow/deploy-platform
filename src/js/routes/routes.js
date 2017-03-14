@@ -35,6 +35,7 @@ export default (
       <Route  name='user' path="/user/list" breadcrumbName="user" onEnter={requireAuth} component={Containers.UserPage}/>
       <Route  name='user' path="/user/create" breadcrumbName="user" onEnter={requireAuth} component={Containers.CreateUser}/>
       <Route  name='user' path="/user/edit" breadcrumbName="user" onEnter={requireAuth} component={Containers.EditUser}/>
+      <Route  name='user' path="/user/modify" breadcrumbName="user" onEnter={requireAuth} component={Containers.ModifyUser}/>
 
       <Route  name='roles' path="/roles/list" breadcrumbName="roles" onEnter={requireAuth} component={Containers.RolesPage}/>
       <Route  name='roles' path="/roles/create" breadcrumbName="roles" onEnter={requireAuth} component={Containers.CreateRoles}/>

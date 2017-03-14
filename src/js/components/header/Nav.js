@@ -73,6 +73,13 @@ export default class Nav extends Component {
                     </MenuItem>
                 </SubMenu>
         )
+        let setting= (
+                <SubMenu key="user_modify" title={<span><Icon type="user"/><span>个人设置</span></span>}>
+                    <MenuItem key="user-modify">
+                        <Link to="/user/modify">修改资料</Link>
+                    </MenuItem>
+                </SubMenu>
+        )
         let roles= (
                 <SubMenu key="roles" title={<span><Icon type="team" /><span>角色管理</span></span>}>
                     <MenuItem key="roles-list">
@@ -85,10 +92,10 @@ export default class Nav extends Component {
         )
 
         let roleControl = [
-            [project, category, image, imgCategory, publish, user, roles ],//管理员
-            [project, category, image, imgCategory ],//开发
-            [project, category ],//测试
-            [ image, imgCategory ],//运营
+            [project, category, image, imgCategory, publish, user, roles, setting ],//管理员
+            [project, category, image, imgCategory, setting],//开发
+            [project, category, setting ],//测试
+            [image, imgCategory, setting ],//运营
         ]
 
         return(

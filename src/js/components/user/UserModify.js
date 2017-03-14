@@ -6,11 +6,10 @@ import isEmpty from 'lodash/isEmpty'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
-class ProjectForm extends Component {
+class UserModify extends Component {
     constructor(props){
         super(props)
         this.onSubmit = this.onSubmit.bind(this);
-        this.handleReturn = this.handleReturn.bind(this);
         this.handlePasswordBlur = this.handlePasswordBlur.bind(this);
         this.checkPassword = this.checkPassword.bind(this);
         this.checkConfirm = this.checkConfirm.bind(this);
@@ -19,47 +18,29 @@ class ProjectForm extends Component {
         }
     }
     componentDidMount() {
-        let { isEdit, toEditData} = this.props;
-        if(this.props.isEdit){
-            this.props.form.setFieldsValue({
-
-                username: toEditData.username,
-                email: toEditData.email,
-                password: toEditData.password,
-                rePassword: toEditData.rePassword
-
-            });
-        }
+        const {toEditData} = this.props
+        this.props.form.setFieldsValue({
+            username: toEditData.username
+        });
     }
 
     onSubmit(e) {
         e.preventDefault();
-        let { isEdit, toEditData, actions, loadEditUser, loadCreateUser, form} = this.props;
+        let { toEditData, loadModifyUser, form} = this.props;
         let params = form.getFieldsValue()
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                if(isEdit){
-                    let params = {
-                        id:toEditData.key,
-                        ...values
-                    }
-                    loadEditUser(params);
-                }else{
-                    loadCreateUser(values);
-                    form.setFieldsValue({
-                        username: '',
-                        email: '',
-                        password: '',
-                        rePassword: '',
-                        roleId: '',
-                    });
+                let params = {
+                    id:toEditData.id,
+                    ...values
                 }
+                loadModifyUser(params);
+                form.setFieldsValue({
+                    password: '',
+                    rePassword: '',
+                });
             }
         });
-    }
-    handleReturn(){
-        let { navigate, dispatch} = this.props
-        dispatch(navigate(`/user/list`))
     }
     handlePasswordBlur(e) {
         const value = e.target.value;
@@ -81,9 +62,8 @@ class ProjectForm extends Component {
         callback();
     }
     render(){
-        const {form, roles , loading, isEdit, toEditData } = this.props
+        const {form, loadModifyUser, toEditData} = this.props
         const getFieldDecorator = form.getFieldDecorator
-        const addOptions = []
         const formItemLayout = {
             labelCol: { span: 6 },
             wrapperCol: { span: 14 }
@@ -94,29 +74,6 @@ class ProjectForm extends Component {
                 offset: 6,
             },
         };
-        const rolename = isEdit&&toEditData.rolename
-
-        let formOptions = {
-            rules: [
-                { required: true, message: '请选择用户类型' },
-            ],
-            onChange: this.handleSelectChange
-        }
-        let rolesOptions = []
-        if(!isEmpty(roles)){
-            roles.forEach(item => {
-                if(rolename&&rolename == item.rolename){
-                    formOptions.initialValue = item._id;
-                    addOptions.push(<Option   key={item._id}>{item.rolename}</Option>)
-                }else
-                    addOptions.push(<Option   key={item._id}>{item.rolename}</Option>)
-
-            })
-        }else{
-            addOptions.push(<Option  value={'loading'} key="loading">loading</Option>)
-        }
-
-
         let container = (
             <div>
             <Form onSubmit={this.onSubmit}>
@@ -124,22 +81,20 @@ class ProjectForm extends Component {
                     {getFieldDecorator('username', {
                         rules: [{ required: true, message: '请输入用户名称!' }],
                     })(
-                        <Input />
+                        <Input readOnly  />
                 )}
                 </FormItem>
-                <FormItem {...formItemLayout} label="E-mail" hasFeedback >
-                    {getFieldDecorator('email', {
+                <FormItem {...formItemLayout} label="原密码" hasFeedback >
+                    {getFieldDecorator('opassword', {
                         rules: [{
-                            type: 'email', message: '请输入有效的邮箱!',
-                        }, {
-                            required: true, message: '请输入你的邮箱',
-                        }],
-                    })( <Input />)}
+                            required: true, message: '请输入原密码!',
+                        }]
+                    })(<Input type="password" />)}
                 </FormItem>
-                <FormItem {...formItemLayout}label="密码" hasFeedback >
+                <FormItem {...formItemLayout}label="新密码" hasFeedback >
                     {getFieldDecorator('password', {
                         rules: [{
-                            required: true, message: '请输入密码!',
+                            required: true, message: '请输入新密码!',
                         }, {
                             validator: this.checkConfirm,
                         }],
@@ -154,29 +109,22 @@ class ProjectForm extends Component {
                         }],
                     })( <Input type="password" />)}
                 </FormItem>
-                <FormItem {...formItemLayout} label="用户类型"  hasFeedback>
-                    {getFieldDecorator('roleId', {...formOptions})(
-                        <Select placeholder="请选择用户类型"  >
-                            {addOptions}
-                        </Select>
-                )}
-                </FormItem>
                 <FormItem {...tailFormItemLayout}>
                     <Button type="primary" htmlType="submit" size="large">提交</Button>
-                    <Button  className="mgl10" onClick={this.handleReturn} size="large">返回</Button>
                 </FormItem>
                  </Form>
             </div>
         )
         return(
             <div>
-                <Spin spinning={loading}>{container}</Spin>
+                {container}
             </div>
         )
     }
 }
-ProjectForm.propTypes = {
+UserModify.propTypes = {
 
 }
-export default Form.create()(ProjectForm)
+export default Form.create()(UserModify)
+
 
