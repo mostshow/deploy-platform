@@ -96,6 +96,7 @@ export default class Nav extends Component {
             [project, category, image, imgCategory, setting],//开发
             [project, category, setting ],//测试
             [image, imgCategory, setting ],//运营
+            [project, category, image, imgCategory, publish, setting ],//运维
         ]
 
         return(
