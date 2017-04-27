@@ -84,6 +84,7 @@ class ProjectForm extends Component {
             },
         };
         const category = isEdit&&toEditData.type
+        let gitAddress = null;
 
         let formOptions = {
             rules: [
@@ -104,7 +105,30 @@ class ProjectForm extends Component {
         }else{
             categoryOptions.push(<Option  value={'loading'} key="loading">loading</Option>)
         }
+        if(isEdit){
+            gitAddress = (
 
+            <FormItem  {...formItemLayout} hasFeedback label="git －地址">
+                    {getFieldDecorator('gitPath', {
+                        rules: [{ required: true, message: '请输入项目名称!' }],
+                    })(
+                        <Input disabled="true" />
+                )}
+                </FormItem>
+            )
+        }else{
+            gitAddress = (
+
+            <FormItem  {...formItemLayout} hasFeedback label="git －地址">
+                    {getFieldDecorator('gitPath', {
+                        rules: [{ required: true, message: '请输入项目名称!' }],
+                    })(
+                        <Input />
+                )}
+                </FormItem>
+            )
+
+        }
 
         let container = (
             <div>
@@ -113,14 +137,7 @@ class ProjectForm extends Component {
                     {getFieldDecorator('name', {
                         rules: [{ required: true, message: '请输入项目名称!' }],
                     })(
-                        <Input />
-                )}
-                </FormItem>
-                <FormItem  {...formItemLayout} hasFeedback label="git －地址">
-                    {getFieldDecorator('gitPath', {
-                        rules: [{ required: true, message: '请输入项目名称!' }],
-                    })(
-                        <Input />
+                        <Input  />
                 )}
                 </FormItem>
                 <FormItem {...formItemLayout} hasFeedback label="分支名">
@@ -130,6 +147,7 @@ class ProjectForm extends Component {
                         <Input />
                 )}
                 </FormItem>
+                {gitAddress}
                 <FormItem {...formItemLayout} hasFeedback label="访问目录">
                     {getFieldDecorator('accessDir' )(
                         <Input placeholder="可不填，自动生成" />

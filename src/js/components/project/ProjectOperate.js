@@ -54,6 +54,9 @@ class ProjectForm extends Component {
         loadRevertProject({...revertData})
 
     }
+    handleDelete(record){
+
+    }
     handleReturn(){
         let { navigate, dispatch} = this.props
         dispatch(navigate(`/project/list`))
