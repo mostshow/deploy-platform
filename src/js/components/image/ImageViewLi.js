@@ -20,7 +20,7 @@ export default class ImageViewLi extends React.Component {
                         <li key={file.key}>
                             <span className="deleteImg" key={file.key} onClick={handleDel.bind(this,file.key,file.url)}>x</span>
                             <a target='_blank' href={file.url} >
-                                <img width="160" height='160' src={file.url}/>
+                                <img width="160" height='160' src={file.resizeUrl}/>
                             </a>
                             <div className="copy_input" >
                                 <Row>
