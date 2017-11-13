@@ -61,6 +61,7 @@ const getData= (state) => {
             let temp ={}
             temp.key = item._id;
             temp.url = item.url;
+            temp.resizeUrl = item.url + '?x-oss-process=image/resize,h_160,w_160,m_pad';
             temp.category = item.category.name;
             dataSource.push(temp)
         })
